@@ -1,41 +1,45 @@
-# HTML Hello
+# CreatorPulse Analytics
 
-The most basic boilerplate for any 4Geeks Academy student, start your very first website from scratch.
+Dashboard académico de ejemplo para analizar comisiones y campañas de una creadora en Instagram, TikTok y YouTube.
 
-> There is a video tutorial on [how to use this template to create your very first website here](https://youtu.be/dfbDCMu_p-0).
+## Abrir el proyecto
 
-## What to do next?
+Abre `index.html` en un navegador. Tailwind CSS v4 se carga con el CDN indicado en el enunciado, por lo que hace falta conexión a Internet para que se apliquen los estilos.
 
-Create an `index.html` file with the [basic HTML structure](http://4geeks.com/lesson/what-is-html-learn-html#page-structure) and see it live by running a web-server using the following command:
+## Tecnologías
 
-```bash
-$ pip3 install flask && python3 server.py
-```
+- HTML5 semántico.
+- Tailwind CSS v4 mediante `@tailwindcss/browser@4`.
+- Sin JavaScript personalizado, frameworks, backend ni APIs.
 
-- You can create as many HTML files as you want.
-- You can also create CSS files and import them into your website using a `<link>` tag placed between the `<head></head>` tags, like this:
+## Datos de demostración
 
-```html
-<head>
-  ...
-  <link rel="stylesheet" type="text/css" href="styles.css">
-  ...
-</head>
-```
+Se muestran 340 conversiones distribuidas entre tres plataformas y tres productos. Cada venta genera una comisión del 15 % sobre el precio:
 
-- If you want to use Tailwind CSS, add it optionally via the official Tailwind CSS v4 CDN inside the same `<head>`:
+| Producto | Precio | Comisión por venta | Ventas de ejemplo | Comisiones |
+|---|---:|---:|---:|---:|
+| A | 50 € | 7,50 € | 120 | 900 € |
+| B | 120 € | 18 € | 100 | 1.800 € |
+| C | 80 € | 12 € | 120 | 1.440 € |
+| **Total** | — | — | **340** | **4.140 €** |
 
-```html
-<head>
-  ...
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <link rel="stylesheet" type="text/css" href="styles.css">
-  ...
-</head>
-```
+Los costes de campaña (2.200 € en total) son un supuesto creado para ilustrar ROI y coste por conversión. No representan gastos reales. Las métricas no proceden de cuentas conectadas.
 
-### Contributors
+## Métricas mostradas
 
-This template was built as part of the [Full Stack Developer course](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer) at [4Geeks Academy Coding Bootcamp](https://4geeksacademy.com/us/coding-bootcamp) by [Alejandro Sanchez](https://twitter.com/alesanchezr) and [many other contributors](https://github.com/4GeeksAcademy/html-hello/graphs/contributors).
+- Tasa de conversión: conversiones ÷ alcance × 100 = 340 ÷ 274.000 × 100 ≈ 0,12 %.
+- Engagement rate: interacciones ÷ alcance × 100 = 44.820 ÷ 274.000 × 100 ≈ 16,36 %.
+- ROI: (comisiones − coste publicitario) ÷ coste publicitario × 100 = (4.140 − 2.200) ÷ 2.200 × 100 ≈ 88,2 %.
+- Las comisiones por plataforma y producto suman 4.140 €. Las ventas brutas serían 27.600 € y no deben confundirse con las comisiones recibidas.
 
-You can find other templates and resources like this at the [school's GitHub page](https://github.com/4geeksacademy/).
+## Secciones
+
+1. KPIs principales.
+2. Drivers: comisiones por plataforma, embudo y rendimiento por producto.
+3. Tablas de productos, plataformas y campañas, más alertas con oportunidades.
+
+El diseño es mobile-first y utiliza breakpoints `sm`, `xl` y `2xl`. Las tablas usan contenedores con desplazamiento propio en pantallas estrechas.
+
+## Limitaciones
+
+Los filtros y el selector de periodo son elementos visuales; no filtran datos. No hay conexión ni sincronización automática con redes sociales. Las variaciones respecto al periodo anterior son ilustrativas.
