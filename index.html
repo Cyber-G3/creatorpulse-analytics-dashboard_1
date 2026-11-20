@@ -1,219 +1,227 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0d172a" />
-    <meta name="description" content="CreatorPulse creator analytics dashboard demo for revenue, affiliate products, brand partnerships, and social performance." />
-    <title>CreatorPulse — My Brand Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  </head>
-  <body class="min-h-screen bg-[#f5f6fa] font-sans text-slate-900 antialiased">
-    <div class="min-h-screen lg:flex">
-      <aside class="flex w-full shrink-0 flex-col bg-[#0d172a] text-white lg:min-h-screen lg:w-60">
-        <div class="flex h-16 items-center gap-3 border-b border-white/10 px-5">
-          <div class="flex size-8 items-center justify-center rounded-lg bg-gradient-to-br from-fuchsia-500 to-violet-600 text-base font-bold">✦</div>
-          <span class="text-sm font-semibold tracking-tight">Sarah's Studio</span>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d172a">
+  <meta name="description" content="CreatorPulse creator analytics dashboard demo for revenue, affiliate products, brand partnerships, and social performance.">
+  <title>CreatorPulse — My Brand Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    :root { color-scheme: light; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #101827; background: #f5f6fa; font-synthesis: none; text-rendering: optimizeLegibility; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-width: 360px; background: #f5f6fa; font-size: 12px; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+    .app { min-height: 100vh; }
+    .sidebar { background: #0d172a; color: #fff; }
+    .brand { height: 64px; display: flex; align-items: center; gap: 9px; padding: 0 16px; border-bottom: 1px solid rgba(255,255,255,.08); font-size: 13px; font-weight: 650; }
+    .brand-mark { display: grid; place-items: center; width: 27px; height: 27px; border-radius: 7px; background: linear-gradient(135deg,#d946ef,#6d48ec); font-size: 15px; }
+    .nav { display: flex; flex-direction: column; gap: 5px; padding: 15px 10px; }
+    .nav a { display: flex; align-items: center; gap: 9px; min-height: 32px; padding: 7px 10px; border-radius: 7px; color: #cbd4e2; font-size: 10px; }
+    .nav a.active { color: #fff; background: #1d2b43; }
+    .nav a:hover { background: #1d2b43; color: #fff; }
+    .nav-icon { width: 12px; text-align: center; color: #cbd4e2; font-size: 12px; }
+    .profile { margin-top: auto; padding: 13px 14px 15px; border-top: 1px solid rgba(255,255,255,.08); }
+    .profile-row { display: flex; align-items: center; gap: 9px; }
+    .avatar { display: grid; place-items: center; width: 30px; height: 30px; flex: 0 0 auto; border-radius: 50%; color: #b7c6ff; background: #253453; font-size: 9px; font-weight: 700; }
+    .profile-name { font-size: 9px; font-weight: 650; }
+    .profile-role { margin-top: 2px; color: #8290a6; font-size: 8px; font-style: italic; }
+    .readme-side { display: inline-block; margin: 13px 0 0 39px; color: #a6b2c4; font-size: 8px; text-decoration: underline; text-underline-offset: 3px; }
+    .main { width: 100%; max-width: 1500px; margin: 0 auto; padding: 26px 28px 22px; }
+    .header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+    h1 { margin: 0; font-size: 19px; letter-spacing: -.4px; line-height: 1.2; }
+    .subtitle { margin: 4px 0 0; color: #7b8798; font-size: 9px; }
+    .actions { display: flex; align-items: center; gap: 7px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 29px; padding: 0 10px; border: 1px solid #e6e9ef; border-radius: 6px; background: #fff; color: #253044; font-size: 9px; white-space: nowrap; }
+    .button-primary { border-color: #4f46e5; background: #4f46e5; color: #fff; box-shadow: 0 2px 4px rgba(79,70,229,.18); }
+    .button:hover { filter: brightness(.97); }
+    .metrics { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; margin-bottom: 17px; }
+    .card { min-width: 0; border: 1px solid #edf0f4; border-radius: 11px; background: #fff; box-shadow: 0 2px 7px rgba(15,23,42,.025); }
+    .metric { min-height: 83px; padding: 13px 14px 11px; }
+    .metric-top { display: flex; align-items: center; justify-content: space-between; gap: 5px; color: #718096; font-size: 8px; }
+    .metric-icon { display: grid; place-items: center; width: 19px; height: 19px; border-radius: 5px; background: #e9fbf4; color: #13a577; font-size: 10px; }
+    .metric-icon.purple { background: #eef0ff; color: #5657dc; }
+    .metric-icon.orange { background: #fff2e9; color: #f17842; }
+    .metric-icon.blue { background: #edf5ff; color: #3686eb; }
+    .metric-value { margin-top: 9px; font-size: 15px; font-weight: 720; letter-spacing: -.35px; white-space: nowrap; }
+    .metric-note { margin-top: 3px; color: #8a96a7; font-size: 7px; }
+    .positive { color: #10a974; }
+    .negative { color: #ef4562; }
+    .middle { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 17px; }
+    .panel { min-width: 0; padding: 14px; }
+    h2 { margin: 0; font-size: 11px; font-weight: 700; letter-spacing: -.1px; }
+    .reach-list { display: grid; gap: 12px; margin-top: 17px; }
+    .reach-line { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 5px; font-size: 8px; }
+    .network { display: inline-flex; align-items: center; gap: 6px; font-weight: 550; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: #ec4899; }
+    .dot.tiktok { background: #111827; }
+    .dot.youtube { background: #e11d48; }
+    .reach-number { font-weight: 650; white-space: nowrap; }
+    .muted { color: #8b95a4; font-weight: 400; }
+    .bar { height: 4px; overflow: hidden; border-radius: 99px; background: #edf0f5; }
+    .fill { height: 100%; border-radius: inherit; background: #ec4899; }
+    .fill.tiktok { background: #111827; }
+    .fill.youtube { background: #e11d48; }
+    .table-wrap { width: 100%; overflow-x: auto; }
+    .products-table { width: 100%; margin-top: 10px; border-collapse: collapse; text-align: left; white-space: nowrap; font-size: 7.5px; }
+    th { color: #7f8a9b; font-size: 7px; font-weight: 550; text-transform: uppercase; letter-spacing: .04em; }
+    .products-table th { padding: 8px 5px; border-bottom: 1px solid #edf0f4; }
+    .products-table td { padding: 9px 5px; border-bottom: 1px solid #f0f2f5; }
+    .products-table tbody tr:last-child td { border-bottom: 0; }
+    .product-name { color: #1e293b; font-weight: 600; text-transform: none; letter-spacing: 0; }
+    .rate { padding: 3px 5px; border-radius: 5px; background: #e9faf3; color: #15966d; font-weight: 650; }
+    .rate.neutral { background: #eef1f5; color: #596273; }
+    .collaborations { overflow: hidden; margin-bottom: 17px; }
+    .section-heading { display: flex; align-items: center; justify-content: space-between; padding: 14px 15px 11px; }
+    .view-all { color: #4f46e5; font-size: 8px; }
+    .collab-table { width: 100%; min-width: 520px; border-collapse: collapse; text-align: left; font-size: 8px; }
+    .collab-table thead { background: #f8f9fb; }
+    .collab-table th { padding: 8px 10px; border-block: 1px solid #edf0f4; font-size: 6.5px; }
+    .collab-table th:first-child,.collab-table td:first-child { padding-left: 15px; }
+    .collab-table td { padding: 9px 10px; border-bottom: 1px solid #f0f2f5; white-space: nowrap; }
+    .collab-table tbody tr:last-child td { border-bottom: 0; }
+    .partner { display: flex; align-items: center; gap: 7px; font-weight: 650; }
+    .partner-icon { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; color: white; background: linear-gradient(135deg,#4cc8be,#125c68); font-size: 6px; }
+    .partner-icon.orange { background: linear-gradient(135deg,#ffd38a,#db741c); }
+    .partner-icon.dark { background: linear-gradient(135deg,#78849a,#202b3d); }
+    .campaign { display: block; margin-top: 2px; color: #8792a2; font-size: 6.5px; font-weight: 400; }
+    .status { display: inline-block; padding: 3px 7px; border-radius: 99px; background: #d8f8e9; color: #17784f; font-size: 6.5px; }
+    .status.paused { background: #eef1f5; color: #626d7c; }
+    .payout { color: #4f46e5; font-weight: 650; }
+    .roi { color: #15966d; font-weight: 650; }
+    .platforms { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); overflow: hidden; }
+    .platform { min-width: 0; padding: 13px 14px; }
+    .platform + .platform { border-left: 1px solid #edf0f4; }
+    .platform-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+    .platform-title { font-size: 8px; font-weight: 700; }
+    .platform-title.instagram { color: #e11d70; }
+    .platform-title.youtube { color: #df123f; }
+    .growth { color: #15966d; font-size: 6.5px; white-space: nowrap; }
+    .growth.down { color: #e24a5c; }
+    .platform-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 13px; }
+    .stat-label { color: #8691a1; font-size: 6.5px; text-transform: uppercase; letter-spacing: .04em; }
+    .stat-value { margin-top: 3px; font-size: 10px; font-weight: 700; }
+    .footer { padding: 12px 2px 0; color: #8993a2; font-size: 8px; line-height: 1.5; }
+
+    @media (min-width: 640px) {
+      .app { display: flex; }
+      .sidebar { position: sticky; top: 0; display: flex; flex: 0 0 clamp(136px, 17vw, 240px); height: 100vh; flex-direction: column; }
+      .main { padding: 25px clamp(18px, 3vw, 42px) 22px; }
+    }
+    @media (max-width: 639px) {
+      .brand { height: 53px; }
+      .nav { flex-direction: row; overflow-x: auto; padding: 7px 9px; }
+      .nav a { flex: 0 0 auto; }
+      .profile { display: none; }
+      .main { padding: 17px 13px; }
+      .header { align-items: flex-start; flex-direction: column; margin-bottom: 15px; }
+      .actions { width: 100%; flex-wrap: wrap; }
+      .metrics { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; margin-bottom: 12px; }
+      .metric { min-height: 78px; padding: 11px; }
+      .metric-value { font-size: 14px; }
+      .middle { grid-template-columns: 1fr; gap: 10px; margin-bottom: 12px; }
+      .collaborations { margin-bottom: 12px; }
+      .platform { padding: 11px 9px; }
+      .platform-top { align-items: flex-start; flex-direction: column; gap: 4px; }
+      .platform-stats { gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">✦</span><span>Sarah's Studio</span></div>
+      <nav class="nav" aria-label="Main navigation">
+        <a class="active" href="#dashboard" aria-current="page"><span class="nav-icon" aria-hidden="true">⌂</span>Dashboard</a>
+        <a href="#partnerships"><span class="nav-icon" aria-hidden="true">♧</span>Partnerships</a>
+        <a href="#platforms"><span class="nav-icon" aria-hidden="true">▥</span>My Content</a>
+        <a href="#products"><span class="nav-icon" aria-hidden="true">◎</span>Finance</a>
+      </nav>
+      <div class="profile">
+        <div class="profile-row">
+          <div class="avatar">JS</div>
+          <div><div class="profile-name">John Smith</div><div class="profile-role">Content Creator</div></div>
         </div>
+        <a class="readme-side" href="https://github.com/Cyber-G3/creatorpulse-analytics-dashboard_1/blob/main/README.md" target="_blank" rel="noopener noreferrer">Read project README</a>
+      </div>
+    </aside>
 
-        <nav aria-label="Main navigation" class="flex gap-1 overflow-x-auto px-3 py-3 text-xs lg:flex-col lg:gap-1.5 lg:py-5">
-          <a href="#dashboard" aria-current="page" class="flex shrink-0 items-center gap-3 rounded-lg bg-slate-800 px-3 py-2.5 font-medium text-white">
-            <span aria-hidden="true">⌂</span> Dashboard
-          </a>
-          <a href="#partnerships" class="flex shrink-0 items-center gap-3 rounded-lg px-3 py-2.5 text-slate-300 hover:bg-slate-800">
-            <span aria-hidden="true">♧</span> Partnerships
-          </a>
-          <a href="#platforms" class="flex shrink-0 items-center gap-3 rounded-lg px-3 py-2.5 text-slate-300 hover:bg-slate-800">
-            <span aria-hidden="true">▥</span> My Content
-          </a>
-          <a href="#products" class="flex shrink-0 items-center gap-3 rounded-lg px-3 py-2.5 text-slate-300 hover:bg-slate-800">
-            <span aria-hidden="true">◎</span> Finance
-          </a>
-        </nav>
+    <main class="main" id="dashboard">
+      <header class="header">
+        <div><h1>My Brand Dashboard</h1><p class="subtitle">Personal performance tracking and campaign ROI overview.</p></div>
+        <div class="actions">
+          <a class="button" href="https://github.com/Cyber-G3/creatorpulse-analytics-dashboard_1/blob/main/README.md" target="_blank" rel="noopener noreferrer">Read README</a>
+          <button class="button" type="button" aria-label="Download demo report">Download Report</button>
+          <button class="button button-primary" type="button" aria-label="New campaign, demo only">New Campaign</button>
+        </div>
+      </header>
 
-        <div class="mt-auto hidden border-t border-white/10 p-4 lg:block">
-          <div class="flex items-center gap-3">
-            <div class="flex size-9 items-center justify-center rounded-full bg-indigo-500/20 text-xs font-bold text-indigo-200">JS</div>
-            <div>
-              <p class="text-xs font-semibold">John Smith</p>
-              <p class="text-[10px] italic text-slate-400">Content Creator</p>
-            </div>
+      <section class="metrics" aria-label="Key performance indicators">
+        <article class="card metric"><div class="metric-top">Total Revenue <span class="metric-icon">$</span></div><div class="metric-value">$42,500.00</div><div class="metric-note positive">↑ 12.5% vs last month</div></article>
+        <article class="card metric"><div class="metric-top">My Earnings (85%) <span class="metric-icon purple">▣</span></div><div class="metric-value">$36,125.00</div><div class="metric-note">After 15% platform fee</div></article>
+        <article class="card metric"><div class="metric-top">Audience Impact <span class="metric-icon orange">▤</span></div><div class="metric-value">4.82%</div><div class="metric-note negative">↓ 0.4% drop</div></article>
+        <article class="card metric"><div class="metric-top">Avg. Engagement <span class="metric-icon blue">◎</span></div><div class="metric-value">7.2%</div><div class="metric-note positive">↑ 2.1% increase</div></article>
+      </section>
+
+      <section class="middle" aria-label="Content reach and products">
+        <article class="card panel">
+          <h2>My Content Reach</h2>
+          <div class="reach-list">
+            <div><div class="reach-line"><span class="network"><i class="dot"></i>Instagram</span><span class="reach-number">$22,100 <span class="muted">(52%)</span></span></div><div class="bar"><div class="fill" style="width:52%"></div></div></div>
+            <div><div class="reach-line"><span class="network"><i class="dot tiktok"></i>TikTok</span><span class="reach-number">$14,450 <span class="muted">(34%)</span></span></div><div class="bar"><div class="fill tiktok" style="width:34%"></div></div></div>
+            <div><div class="reach-line"><span class="network"><i class="dot youtube"></i>YouTube</span><span class="reach-number">$5,950 <span class="muted">(14%)</span></span></div><div class="bar"><div class="fill youtube" style="width:14%"></div></div></div>
           </div>
-          <a href="https://github.com/Cyber-G3/creatorpulse-analytics-dashboard_1/blob/main/README.md" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex text-[10px] font-medium text-slate-400 underline decoration-slate-600 underline-offset-4 hover:text-white">Read project README</a>
+        </article>
+
+        <article class="card panel" id="products">
+          <h2>Top Affiliate Products</h2>
+          <div class="table-wrap">
+            <table class="products-table">
+              <caption style="position:absolute;left:-10000px">Affiliate product revenue and conversion rate</caption>
+              <thead><tr><th>Brand Partner</th><th>Avg. Price</th><th>Revenue</th><th>Conv. Rate</th></tr></thead>
+              <tbody>
+                <tr><td class="product-name">Product A (Skincare)</td><td>$50.00</td><td>$15,200</td><td><span class="rate">5.2%</span></td></tr>
+                <tr><td class="product-name">Product B (Apparel)</td><td>$120.00</td><td>$18,500</td><td><span class="rate">4.1%</span></td></tr>
+                <tr><td class="product-name">Product C (Accessory)</td><td>$80.00</td><td>$8,800</td><td><span class="rate neutral">3.8%</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <section class="card collaborations" id="partnerships">
+        <div class="section-heading"><h2>Recent Brand Collaborations</h2><a class="view-all" href="#platforms">View All</a></div>
+        <div class="table-wrap">
+          <table class="collab-table">
+            <caption style="position:absolute;left:-10000px">Recent brand collaboration performance</caption>
+            <thead><tr><th>Brand Partner</th><th>Status</th><th>Followers</th><th>Revenue</th><th style="color:#4f46e5">My Payout</th><th>ROI</th></tr></thead>
+            <tbody>
+              <tr><td><span class="partner"><span class="partner-icon">LS</span><span>Luxe Skincare<small class="campaign">Summer Campaign</small></span></span></td><td><span class="status">Active</span></td><td>245k</td><td>$12,400.00</td><td class="payout">$1,860.00</td><td class="roi">6.2x</td></tr>
+              <tr><td><span class="partner"><span class="partner-icon orange">UA</span><span>Urban Apparel<small class="campaign">Fall Collection</small></span></span></td><td><span class="status">Active</span></td><td>82k</td><td>$4,200.00</td><td class="payout">$630.00</td><td class="roi">4.8x</td></tr>
+              <tr><td><span class="partner"><span class="partner-icon dark">TG</span><span>Tech Gadgets<small class="campaign">Review Video</small></span></span></td><td><span class="status paused">Paused</span></td><td>1.2M</td><td>$21,900.00</td><td class="payout">$3,285.00</td><td class="roi">5.4x</td></tr>
+            </tbody>
+          </table>
         </div>
-      </aside>
+      </section>
 
-      <main id="dashboard" class="min-w-0 flex-1">
-        <div class="mx-auto max-w-[1500px] space-y-5 px-4 py-5 sm:px-6 sm:py-7 lg:px-9">
-          <header class="flex flex-wrap items-center justify-between gap-4">
-            <div>
-              <h1 class="text-xl font-bold tracking-tight sm:text-2xl">My Brand Dashboard</h1>
-              <p class="mt-1 text-xs text-slate-500">Personal performance tracking and campaign ROI overview.</p>
-            </div>
-            <div class="flex w-full flex-wrap items-center gap-2 sm:w-auto">
-              <a href="https://github.com/Cyber-G3/creatorpulse-analytics-dashboard_1/blob/main/README.md" target="_blank" rel="noopener noreferrer" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50">Read README</a>
-              <button type="button" aria-label="Download demo report" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50">Download Report</button>
-              <button type="button" aria-label="New campaign, demo only" class="rounded-lg bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-indigo-700">New Campaign</button>
-            </div>
-          </header>
+      <section class="card platforms" id="platforms" aria-label="Platform performance">
+        <article class="platform">
+          <div class="platform-top"><h2 class="platform-title instagram">Instagram</h2><span class="growth">+18% growth</span></div>
+          <div class="platform-stats"><div><div class="stat-label">Clicks</div><div class="stat-value">45.2k</div></div><div><div class="stat-label">Shares</div><div class="stat-value">1.2k</div></div></div>
+        </article>
+        <article class="platform">
+          <div class="platform-top"><h2 class="platform-title">TikTok</h2><span class="growth">+32% growth</span></div>
+          <div class="platform-stats"><div><div class="stat-label">Views</div><div class="stat-value">890k</div></div><div><div class="stat-label">Completion</div><div class="stat-value">42%</div></div></div>
+        </article>
+        <article class="platform">
+          <div class="platform-top"><h2 class="platform-title youtube">YouTube</h2><span class="growth down">−2% drop</span></div>
+          <div class="platform-stats"><div><div class="stat-label">Avg. Watch</div><div class="stat-value">4m 12s</div></div><div><div class="stat-label">CTR</div><div class="stat-value">2.8%</div></div></div>
+        </article>
+      </section>
 
-          <section aria-label="Key performance indicators" class="grid grid-cols-1 gap-3 min-[480px]:grid-cols-2 2xl:grid-cols-4">
-            <article class="rounded-xl border border-slate-100 bg-white p-4 shadow-sm">
-              <div class="flex items-center justify-between">
-                <p class="text-[11px] text-slate-500">Total Revenue</p>
-                <span class="flex size-7 items-center justify-center rounded-lg bg-emerald-50 text-sm font-bold text-emerald-600">$</span>
-              </div>
-              <p class="mt-3 text-xl font-bold tracking-tight">$42,500.00</p>
-              <p class="mt-1.5 text-[10px] font-semibold text-emerald-600">↑ 12.5% <span class="font-normal text-slate-400">vs last month</span></p>
-            </article>
-
-            <article class="rounded-xl border border-slate-100 bg-white p-4 shadow-sm">
-              <div class="flex items-center justify-between">
-                <p class="text-[11px] text-slate-500">My Earnings (85%)</p>
-                <span class="flex size-7 items-center justify-center rounded-lg bg-indigo-50 text-sm font-bold text-indigo-600">↗</span>
-              </div>
-              <p class="mt-3 text-xl font-bold tracking-tight">$36,125.00</p>
-              <p class="mt-1.5 text-[10px] text-slate-400">After 15% platform fee</p>
-            </article>
-
-            <article class="rounded-xl border border-slate-100 bg-white p-4 shadow-sm">
-              <div class="flex items-center justify-between">
-                <p class="text-[11px] text-slate-500">Audience Impact</p>
-                <span class="flex size-7 items-center justify-center rounded-lg bg-orange-50 text-sm font-bold text-orange-600">▣</span>
-              </div>
-              <p class="mt-3 text-xl font-bold tracking-tight">4.82%</p>
-              <p class="mt-1.5 text-[10px] font-semibold text-rose-600">↓ 0.4% drop</p>
-            </article>
-
-            <article class="rounded-xl border border-slate-100 bg-white p-4 shadow-sm">
-              <div class="flex items-center justify-between">
-                <p class="text-[11px] text-slate-500">Avg. Engagement</p>
-                <span class="flex size-7 items-center justify-center rounded-lg bg-sky-50 text-sm font-bold text-sky-600">◎</span>
-              </div>
-              <p class="mt-3 text-xl font-bold tracking-tight">7.2%</p>
-              <p class="mt-1.5 text-[10px] font-semibold text-emerald-600">↑ 2.1% increase</p>
-            </article>
-          </section>
-
-          <section aria-label="Content reach and products" class="grid grid-cols-1 gap-4 xl:grid-cols-2">
-            <article class="rounded-xl border border-slate-100 bg-white p-4 shadow-sm sm:p-5">
-              <h2 class="text-sm font-bold">My Content Reach</h2>
-              <div class="mt-5 space-y-4">
-                <div>
-                  <div class="mb-1.5 flex items-center justify-between gap-3 text-[11px]">
-                    <span class="flex items-center gap-2 font-medium"><span class="size-2 rounded-full bg-pink-500"></span>Instagram</span>
-                    <span class="font-semibold">$22,100 <span class="font-normal text-slate-400">(52%)</span></span>
-                  </div>
-                  <div class="h-1.5 rounded-full bg-slate-100"><div class="h-1.5 w-[52%] rounded-full bg-pink-500"></div></div>
-                </div>
-                <div>
-                  <div class="mb-1.5 flex items-center justify-between gap-3 text-[11px]">
-                    <span class="flex items-center gap-2 font-medium"><span class="size-2 rounded-full bg-slate-900"></span>TikTok</span>
-                    <span class="font-semibold">$14,450 <span class="font-normal text-slate-400">(34%)</span></span>
-                  </div>
-                  <div class="h-1.5 rounded-full bg-slate-100"><div class="h-1.5 w-[34%] rounded-full bg-slate-900"></div></div>
-                </div>
-                <div>
-                  <div class="mb-1.5 flex items-center justify-between gap-3 text-[11px]">
-                    <span class="flex items-center gap-2 font-medium"><span class="size-2 rounded-full bg-rose-600"></span>YouTube</span>
-                    <span class="font-semibold">$5,950 <span class="font-normal text-slate-400">(14%)</span></span>
-                  </div>
-                  <div class="h-1.5 rounded-full bg-slate-100"><div class="h-1.5 w-[14%] rounded-full bg-rose-600"></div></div>
-                </div>
-              </div>
-            </article>
-
-            <article id="products" class="rounded-xl border border-slate-100 bg-white p-4 shadow-sm sm:p-5">
-              <h2 class="text-sm font-bold">Top Affiliate Products</h2>
-              <div class="mt-4 overflow-x-auto">
-                <table class="w-full min-w-[430px] text-left text-[10px]">
-                  <caption class="sr-only">Affiliate product revenue and conversion rate</caption>
-                  <thead class="border-b border-slate-100 text-[9px] uppercase tracking-wide text-slate-400">
-                    <tr>
-                      <th scope="col" class="py-2 pr-3 font-semibold">Brand Partner</th>
-                      <th scope="col" class="py-2 pr-3 font-semibold">Avg. Price</th>
-                      <th scope="col" class="py-2 pr-3 font-semibold">Revenue</th>
-                      <th scope="col" class="py-2 font-semibold">Conv. Rate</th>
-                    </tr>
-                  </thead>
-                  <tbody class="divide-y divide-slate-100">
-                    <tr><th scope="row" class="py-3 pr-3 font-semibold">Product A (Skincare)</th><td class="py-3 pr-3">$50.00</td><td class="py-3 pr-3">$15,200</td><td class="py-3"><span class="rounded-full bg-emerald-50 px-2 py-1 font-semibold text-emerald-700">5.2%</span></td></tr>
-                    <tr><th scope="row" class="py-3 pr-3 font-semibold">Product B (Apparel)</th><td class="py-3 pr-3">$120.00</td><td class="py-3 pr-3">$18,500</td><td class="py-3"><span class="rounded-full bg-emerald-50 px-2 py-1 font-semibold text-emerald-700">4.1%</span></td></tr>
-                    <tr><th scope="row" class="py-3 pr-3 font-semibold">Product C (Accessory)</th><td class="py-3 pr-3">$80.00</td><td class="py-3 pr-3">$8,800</td><td class="py-3"><span class="rounded-full bg-slate-100 px-2 py-1 font-semibold text-slate-600">3.8%</span></td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </article>
-          </section>
-
-          <section id="partnerships" aria-labelledby="partnerships-title" class="overflow-hidden rounded-xl border border-slate-100 bg-white shadow-sm">
-            <div class="flex items-center justify-between gap-3 px-4 py-4 sm:px-5">
-              <h2 id="partnerships-title" class="text-sm font-bold">Recent Brand Collaborations</h2>
-              <a href="#platforms" class="text-[10px] font-semibold text-indigo-600 hover:text-indigo-800">View All</a>
-            </div>
-            <div class="overflow-x-auto">
-              <table class="w-full min-w-[700px] text-left text-[10px]">
-                <caption class="sr-only">Recent brand collaboration performance</caption>
-                <thead class="border-y border-slate-100 bg-slate-50/80 text-[9px] uppercase tracking-wide text-slate-500">
-                  <tr>
-                    <th scope="col" class="px-4 py-3 font-semibold">Brand Partner</th>
-                    <th scope="col" class="px-3 py-3 font-semibold">Status</th>
-                    <th scope="col" class="px-3 py-3 font-semibold">Followers</th>
-                    <th scope="col" class="px-3 py-3 font-semibold">Revenue</th>
-                    <th scope="col" class="px-3 py-3 font-semibold text-indigo-600">My Payout</th>
-                    <th scope="col" class="px-3 py-3 font-semibold">ROI</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-100">
-                  <tr>
-                    <th scope="row" class="px-4 py-3 font-semibold"><span class="flex items-center gap-2"><span class="flex size-7 items-center justify-center rounded-full bg-gradient-to-br from-teal-200 to-cyan-700 text-[9px] text-white">LS</span><span>Luxe Skincare<small class="block font-normal text-slate-400">Summer Campaign</small></span></span></th>
-                    <td class="px-3 py-3"><span class="rounded-full bg-emerald-100 px-2 py-1 text-[9px] font-medium text-emerald-800">Active</span></td>
-                    <td class="px-3 py-3">245k</td><td class="px-3 py-3">$12,400.00</td><td class="px-3 py-3 font-semibold text-indigo-600">$1,860.00</td><td class="px-3 py-3 font-semibold text-emerald-600">6.2x</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="px-4 py-3 font-semibold"><span class="flex items-center gap-2"><span class="flex size-7 items-center justify-center rounded-full bg-gradient-to-br from-amber-200 to-orange-600 text-[9px] text-white">UA</span><span>Urban Apparel<small class="block font-normal text-slate-400">Fall Collection</small></span></span></th>
-                    <td class="px-3 py-3"><span class="rounded-full bg-emerald-100 px-2 py-1 text-[9px] font-medium text-emerald-800">Active</span></td>
-                    <td class="px-3 py-3">82k</td><td class="px-3 py-3">$4,200.00</td><td class="px-3 py-3 font-semibold text-indigo-600">$630.00</td><td class="px-3 py-3 font-semibold text-emerald-600">4.8x</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="px-4 py-3 font-semibold"><span class="flex items-center gap-2"><span class="flex size-7 items-center justify-center rounded-full bg-gradient-to-br from-slate-400 to-slate-800 text-[9px] text-white">TG</span><span>Tech Gadgets<small class="block font-normal text-slate-400">Review Video</small></span></span></th>
-                    <td class="px-3 py-3"><span class="rounded-full bg-slate-100 px-2 py-1 text-[9px] font-medium text-slate-600">Paused</span></td>
-                    <td class="px-3 py-3">1.2M</td><td class="px-3 py-3">$21,900.00</td><td class="px-3 py-3 font-semibold text-indigo-600">$3,285.00</td><td class="px-3 py-3 font-semibold text-emerald-600">5.4x</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
-
-          <section id="platforms" aria-label="Platform performance" class="grid grid-cols-1 overflow-hidden rounded-xl border border-slate-100 bg-white shadow-sm sm:grid-cols-3">
-            <article class="border-b border-slate-100 p-4 sm:border-b-0 sm:border-r">
-              <div class="flex items-center justify-between gap-2"><h2 class="text-xs font-bold text-pink-600">Instagram</h2><span class="text-[9px] font-semibold text-emerald-600">+18% growth</span></div>
-              <div class="mt-4 grid grid-cols-2 gap-3">
-                <div><p class="text-[9px] uppercase tracking-wide text-slate-400">Clicks</p><p class="mt-0.5 text-sm font-bold">45.2k</p></div>
-                <div><p class="text-[9px] uppercase tracking-wide text-slate-400">Shares</p><p class="mt-0.5 text-sm font-bold">1.2k</p></div>
-              </div>
-            </article>
-            <article class="border-b border-slate-100 p-4 sm:border-b-0 sm:border-r">
-              <div class="flex items-center justify-between gap-2"><h2 class="text-xs font-bold text-slate-900">TikTok</h2><span class="text-[9px] font-semibold text-emerald-600">+32% growth</span></div>
-              <div class="mt-4 grid grid-cols-2 gap-3">
-                <div><p class="text-[9px] uppercase tracking-wide text-slate-400">Views</p><p class="mt-0.5 text-sm font-bold">890k</p></div>
-                <div><p class="text-[9px] uppercase tracking-wide text-slate-400">Completion</p><p class="mt-0.5 text-sm font-bold">42%</p></div>
-              </div>
-            </article>
-            <article class="p-4">
-              <div class="flex items-center justify-between gap-2"><h2 class="text-xs font-bold text-rose-600">YouTube</h2><span class="text-[9px] font-semibold text-rose-600">−2% drop</span></div>
-              <div class="mt-4 grid grid-cols-2 gap-3">
-                <div><p class="text-[9px] uppercase tracking-wide text-slate-400">Avg. Watch</p><p class="mt-0.5 text-sm font-bold">4m 12s</p></div>
-                <div><p class="text-[9px] uppercase tracking-wide text-slate-400">CTR</p><p class="mt-0.5 text-sm font-bold">2.8%</p></div>
-              </div>
-            </article>
-          </section>
-
-          <footer class="border-t border-slate-200 py-3 text-[10px] leading-5 text-slate-500">
-            Demonstration dashboard with sample figures. It is not connected to Instagram, TikTok, YouTube, affiliate networks, or brand accounts. The report and campaign controls are visual examples.
-          </footer>
-        </div>
-      </main>
-    </div>
-  </body>
+      <footer class="footer">Demonstration dashboard with sample figures. It is not connected to Instagram, TikTok, YouTube, affiliate networks, or brand accounts. The report and campaign controls are visual examples.</footer>
+    </main>
+  </div>
+</body>
 </html>
